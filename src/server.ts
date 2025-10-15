@@ -3,14 +3,14 @@
 // ------------------------------
 
 // Import core modules
-import express, { Express, Request, Response, NextFunction } from 'express';
-import cors from 'cors';
-import mongoose from 'mongoose';
-import dotenv from 'dotenv';
+import express, { Express, Request, Response, NextFunction } from "express";
+import cors from "cors";
+import mongoose from "mongoose";
+import dotenv from "dotenv";
 
 // Import routes (use .js extension for ESM)
 import scanRoutes from "./routes/scan.js";
-import resultsRoutes from './routes/results.js';
+import resultsRoutes from "./routes/results.js";
 
 // Load environment variables
 dotenv.config();
@@ -29,26 +29,27 @@ app.use(express.urlencoded({ extended: true }));
 // ------------------------------
 // 🗄️ MongoDB Connection
 // ------------------------------
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/visiai';
+// const MONGODB_URI =
+//   "mongodb+srv://syedtalaljilanidev:syedtalaljilanidev@cluster0.idjv9bg.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
-mongoose
-  .connect(MONGODB_URI)
-  .then(() => console.log('✅ MongoDB Connected Successfully'))
-  .catch((err) => console.error('❌ MongoDB Connection Error:', err.message));
+// mongoose
+//   .connect(MONGODB_URI)
+//   .then(() => console.log("✅ MongoDB Connected Successfully"))
+//   .catch((err) => console.error("❌ MongoDB Connection Error:", err.message));
 
 // ------------------------------
 // 🚏 API Routes
 // ------------------------------
-app.use('/api/scan', scanRoutes);
-app.use('/api/results', resultsRoutes);
+app.use("/api/scan", scanRoutes);
+app.use("/api/results", resultsRoutes);
 
 // ------------------------------
 // 💓 Health Check Route
 // ------------------------------
-app.get('/api/health', (req: Request, res: Response) => {
+app.get("/api/health", (req: Request, res: Response) => {
   res.status(200).json({
-    status: 'ok',
-    message: 'VisiAI API is running smoothly 🚀',
+    status: "ok",
+    message: "VisiAI API is running smoothly 🚀",
   });
 });
 
@@ -56,9 +57,9 @@ app.get('/api/health', (req: Request, res: Response) => {
 // ⚠️ Global Error Handler
 // ------------------------------
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
-  console.error('🔥 Server Error:', err.stack);
+  console.error("🔥 Server Error:", err.stack);
   res.status(500).json({
-    error: 'Internal Server Error',
+    error: "Internal Server Error",
     message: err.message,
   });
 });
@@ -69,9 +70,6 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
 app.listen(PORT, () => {
   console.log(`⚡ Server running on http://localhost:${PORT}`);
 });
-
-
-
 
 // // server.ts
 // const express = require('express');
