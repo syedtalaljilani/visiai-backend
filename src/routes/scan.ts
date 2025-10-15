@@ -103,56 +103,56 @@ router.post("/", async (req: Request, res: Response) => {
       maxIntensity: 1.0,
     };
 
-    // Step 9: Save to MongoDB
-    console.log("⏳ Step 9: Saving scan to database...");
-    const scan = new ScanModel({
-      url,
-      screenshot,
-      scores: {
-        visualClarity: Math.round(visualClarityScore),
-        accessibility: Math.round(accessibilityScore),
-        readability: Math.round(readabilityScore),
-        reimagineUX: Math.round(reimagineScore),
-        focusAccuracy: Math.round(performanceScore),
-        overall: overallScore,
-      },
-      metrics: {
-        colorContrast: {
-          passAA: accessibilityScore > 70,
-          passAAA: accessibilityScore > 85,
-          issues: lighthouseResult.accessibilityIssues,
-        },
-        textReadability: {
-          fleschScore: readabilityResult.fleschScore,
-          gradeLevel: readabilityResult.gradeLevel,
-          issues: readabilityResult.issues,
-        },
-        accessibility: {
-          missingAlt: 0,
-          ariaIssues: lighthouseResult.accessibilityIssues.length,
-          keyboardNav: accessibilityScore > 75,
-          issues: lighthouseResult.accessibilityIssues,
-        },
-        reimagineWeb: reimagineResult.metrics,
-        lighthouse: {
-          performance: lighthouseResult.performanceScore,
-          accessibility: lighthouseResult.accessibilityScore,
-          bestPractices: lighthouseResult.bestPracticesScore,
-          seo: lighthouseResult.seoScore,
-        },
-      },
-      aiAnalysis: {
-        visualIssues: geminiAnalysis.visualIssues,
-        layoutProblems: geminiAnalysis.layoutProblems,
-        attentionZones: geminiAnalysis.attentionZones,
-      },
-      recommendations,
-      heatmapData,
-    });
+    // // Step 9: Save to MongoDB
+    // console.log("⏳ Step 9: Saving scan to database...");
+    // const scan = new ScanModel({
+    //   url,
+    //   screenshot,
+    //   scores: {
+    //     visualClarity: Math.round(visualClarityScore),
+    //     accessibility: Math.round(accessibilityScore),
+    //     readability: Math.round(readabilityScore),
+    //     reimagineUX: Math.round(reimagineScore),
+    //     focusAccuracy: Math.round(performanceScore),
+    //     overall: overallScore,
+    //   },
+    //   metrics: {
+    //     colorContrast: {
+    //       passAA: accessibilityScore > 70,
+    //       passAAA: accessibilityScore > 85,
+    //       issues: lighthouseResult.accessibilityIssues,
+    //     },
+    //     textReadability: {
+    //       fleschScore: readabilityResult.fleschScore,
+    //       gradeLevel: readabilityResult.gradeLevel,
+    //       issues: readabilityResult.issues,
+    //     },
+    //     accessibility: {
+    //       missingAlt: 0,
+    //       ariaIssues: lighthouseResult.accessibilityIssues.length,
+    //       keyboardNav: accessibilityScore > 75,
+    //       issues: lighthouseResult.accessibilityIssues,
+    //     },
+    //     reimagineWeb: reimagineResult.metrics,
+    //     lighthouse: {
+    //       performance: lighthouseResult.performanceScore,
+    //       accessibility: lighthouseResult.accessibilityScore,
+    //       bestPractices: lighthouseResult.bestPracticesScore,
+    //       seo: lighthouseResult.seoScore,
+    //     },
+    //   },
+    //   aiAnalysis: {
+    //     visualIssues: geminiAnalysis.visualIssues,
+    //     layoutProblems: geminiAnalysis.layoutProblems,
+    //     attentionZones: geminiAnalysis.attentionZones,
+    //   },
+    //   recommendations,
+    //   heatmapData,
+    // });
 
-    await scan.save();
-    console.log("✅ Scan saved to database");
-    console.log(`${"=".repeat(70)}\n`);
+    // await scan.save();
+    // console.log("✅ Scan saved to database");
+    // console.log(`${"=".repeat(70)}\n`);
 
     res.json({
       success: true,
